@@ -1,11 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NewTodoForm } from "./newTodoForm";
 import { TodoList } from "./todoList";
 
 export default function App() {
+  const [todos, setTodos] = useState(() => {
+    const localValue = localStorage.getItem("ITEMS")
+    if (localValue == null) return []
+  })
+  // hakee ITEMSit localstoragesta
+  // ei voi renderöidä hookseja ehdollisesti
+  // hooks aina filen ylös
 
-  
-  const [todos, setTodos] = useState([])
+  useEffect(() => {
+    localStorage.setItem("ITEM", JSON.stringify(todos))
+ }, [todos]) // aina kun todos muuttuu, useEffect ajetaan
 
   function addTodo(title) {
       setTodos(currentTodos => {
@@ -15,8 +23,6 @@ export default function App() {
           ]
       })
   }
-
-  console.log(todos)
 
   function handleDelete(id) {
     setTodos(currentTodos => {
@@ -43,7 +49,6 @@ export default function App() {
     toggleTodo={toggleTodo}
     handleDelete={handleDelete}
     />
-      
     </>
   );
 }
