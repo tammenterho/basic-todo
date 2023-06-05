@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { NewTodoForm } from "./newTodoForm";
+import { TodoList } from "./todoList";
 
 export default function App() {
 
@@ -16,7 +17,13 @@ export default function App() {
   }
 
   console.log(todos)
-  
+
+  function handleDelete(id) {
+    setTodos(currentTodos => {
+      return currentTodos.filter(todo => todo.id !== id)
+    })
+  }
+ 
   function toggleTodo(id, completed) {
     setTodos(currentTodos => {
       return currentTodos.map(todo => {
@@ -28,39 +35,15 @@ export default function App() {
     })
   }
   
-  function handleDelete(id) {
-    setTodos(currentTodos => {
-      return currentTodos.filter(todo => todo.id !== id)
-    })
-  }
-
-  function noTodos () {
-    return <p>no todos</p>
-  }
-
   return (
     <>
-    <NewTodoForm addTodo={addTodo}/>
-      <h1>List</h1>
-      <ul>
-        {todos.length === 0 && noTodos()} {/*tähän voisi myös suoraan laittaa {todos.length === 0 && "no todos" */}
-        {todos.map(todo => {
-          return (
-          <li key={todo.id}>
-            <label>
-              <input type="checkbox" 
-              checked={todo.completed}
-              onChange={e => toggleTodo(todo.id, e.target.checked)}/>
-            {todo.title}
-            <button 
-            className="btn-delete" 
-            onClick={() => handleDelete(todo.id)} // onClick={handleDelete(todo.id)} jos halutaan funktiota käyttää niin nuolifunktio on oltava
-            >Delete</button>
-            </label>
-          </li>
-        )
-        })}
-      </ul>
+    <NewTodoForm onSubmit={addTodo}/>
+    <TodoList 
+    todos={todos}
+    toggleTodo={toggleTodo}
+    handleDelete={handleDelete}
+    />
+      
     </>
   );
 }

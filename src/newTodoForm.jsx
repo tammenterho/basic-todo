@@ -9,7 +9,7 @@ export function NewTodoForm(props) {
     function handleSubmit(e) {
         e.preventDefault()
 
-        props.addTodo(newItem)
+        props.onSubmit(newItem)
 
         setNewItem("")
     }
