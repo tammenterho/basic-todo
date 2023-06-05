@@ -37,6 +37,10 @@ export default function App() {
     })
   }
 
+  function noTodos () {
+    return <p>no todos</p>
+  }
+
   return (
     <>
       <form
@@ -55,6 +59,7 @@ export default function App() {
       </form>
       <h1>List</h1>
       <ul>
+        {todos.length === 0 && noTodos()}
         {todos.map(todo => {
           return (
           <li key={todo.id}>
@@ -65,7 +70,7 @@ export default function App() {
             {todo.title}
             <button 
             className="btn-delete" 
-            onClick={() => handleDelete(todo.id)}
+            onClick={() => handleDelete(todo.id)} // onClick={handleDelete(todo.id)} jos halutaan funktiota käyttää niin nuolifunktio on oltava
             >Delete</button>
             </label>
           </li>
