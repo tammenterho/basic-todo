@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Button, TextField } from "@mui/material"
 
 
 export function NewTodoForm(props) {
@@ -18,16 +19,20 @@ export function NewTodoForm(props) {
         <form
             onSubmit={handleSubmit}
             className="esine-form">
-            <label>
-                New Item
-            </label>
-            <input
+            
+            <TextField
                 value={newItem}
                 onChange={e => setNewItem(e.target.value)}
                 type="text"
-                id="esine"
+                id="outlined-basic"
+                label="New item"
+                variant="outlined"
             />
-            <button>lisää</button>
+            <Button
+            variant="contained" // kun on MUI button, type on oltava "submit" jotta handleSubmit toimii
+            color="success"
+            type="submit">
+                lisää</Button> 
         </form>
 
     )

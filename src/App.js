@@ -11,6 +11,8 @@ export default function App() {
   // ei voi renderöidä hookseja ehdollisesti
   // hooks aina filen ylös
 
+  const[done, setDone] = useState([])
+
   useEffect(() => {
     localStorage.setItem("ITEM", JSON.stringify(todos))
  }, [todos]) // aina kun todos muuttuu, useEffect ajetaan
@@ -49,6 +51,7 @@ export default function App() {
     toggleTodo={toggleTodo}
     handleDelete={handleDelete}
     />
+    <h1>Completed</h1>
     </>
   );
 }
