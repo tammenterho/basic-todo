@@ -23,7 +23,6 @@ export function TodoList({ todos, toggleTodo, handleDelete }) {
                         title={todo.title}
                         key={todo.id}
                         toggleTodo={toggleTodo}
-                        handleDelete={handleDelete}
                         />
                         // tai pelkästään {...todo} key={todo.id}
                     )

@@ -13,10 +13,6 @@ export function TodoItem({ completed, id, title, toggleTodo, handleDelete }) {
                 onChange={e => toggleTodo(id, e.target.checked)}
                 />
                 {title}
-                <Button variant="outlined" color="error"
-                    className="btn-delete"
-                onClick={() => handleDelete(id)} // onClick={handleDelete(id)} jos halutaan funktiota käyttää niin nuolifunktio on oltava
-                >Delete</Button>
             </label>
         </li>
     )

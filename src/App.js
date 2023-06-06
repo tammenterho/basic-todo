@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NewTodoForm } from "./newTodoForm";
 import { TodoList } from "./todoList";
 import { Button } from "@mui/material";
+import { CompletedList } from "./completedList";
 
 export default function App() {
   const [todos, setTodos] = useState(() => {
@@ -62,21 +63,9 @@ export default function App() {
         toggleTodo={toggleTodo}
         handleDelete={handleDelete}
       />
-      <h1>Completed</h1>
-      <ul>
-        {dones.length === 0 && "complete a task!"}
-        {dones.map(done => {
-          return (
-            <li key={done.id}>
-              {done.title}
-              <Button variant="outlined" color="error"
-                className="btn-delete"
-                onClick={() => handleDelete(done.id)} // onClick={handleDelete(id)} jos halutaan funktiota käyttää niin nuolifunktio on oltava
-              >Delete</Button>
-            </li>
-          )
-        })}
-      </ul>
+      <CompletedList
+      dones={dones}
+      handleDelete={handleDelete}/>
     </>
   );
 }
