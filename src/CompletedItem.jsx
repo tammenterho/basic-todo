@@ -1,9 +1,11 @@
 import { Button } from "@mui/material";
+import './../src/styles.css'
 
 export function CompletedItem({id, title, handleDelete}) {
 
     return (
-        <li key={id}>
+        <li className="doneItem"
+        key={id}>
             {title}
             <Button
                 variant="outlined"

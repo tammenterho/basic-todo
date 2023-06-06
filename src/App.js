@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NewTodoForm } from "./newTodoForm";
 import { TodoList } from "./todoList";
-import { Button } from "@mui/material";
+import './../src/styles.css'
 import { CompletedList } from "./completedList";
 
 export default function App() {
@@ -57,7 +57,9 @@ export default function App() {
 
   return (
     <>
+      <h1 className="header">Simple Todo List</h1>
       <NewTodoForm onSubmit={addTodo} />
+      <div className="lists">
       <TodoList
         todos={todos}
         toggleTodo={toggleTodo}
@@ -66,6 +68,7 @@ export default function App() {
       <CompletedList
       dones={dones}
       handleDelete={handleDelete}/>
+      </div>
     </>
   );
 }

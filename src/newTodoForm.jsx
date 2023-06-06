@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { Button, TextField } from "@mui/material"
+import './../src/styles.css'
 
 
 export function NewTodoForm(props) {
@@ -18,7 +19,7 @@ export function NewTodoForm(props) {
     return (
         <form
             onSubmit={handleSubmit}
-            className="esine-form">
+            className="item-form">
             
             <TextField
                 value={newItem}
@@ -29,10 +30,11 @@ export function NewTodoForm(props) {
                 variant="outlined"
             />
             <Button
+            className="add-btn"
             variant="contained" // kun on MUI button, type on oltava "submit" jotta handleSubmit toimii
             color="success"
             type="submit">
-                lisää</Button> 
+                Add</Button> 
         </form>
 
     )

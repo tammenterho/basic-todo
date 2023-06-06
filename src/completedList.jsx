@@ -1,12 +1,12 @@
-import { Button } from "@mui/material";
 import { CompletedItem } from "./CompletedItem";
+import './../src/styles.css'
 
 export function CompletedList({handleDelete, dones}) {
     
     return (
-        <>
+        <div className="doneDiv">
             <h1>Completed</h1>
-            <ul>
+            <ul className="list">
                 {dones.length === 0 && "complete a task!"}
                 {dones.map(done => {
                     return (
@@ -20,6 +20,6 @@ export function CompletedList({handleDelete, dones}) {
                     )
                 })}
             </ul>
-        </>
+        </div>
     )
 }
