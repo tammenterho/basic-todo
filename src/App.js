@@ -3,6 +3,11 @@ import { NewTodoForm } from "./newTodoForm";
 import { TodoList } from "./todoList";
 import './../src/styles.css'
 import { CompletedList } from "./completedList";
+import './../src/styles.css'
+
+
+
+
 
 export default function App() {
   const [todos, setTodos] = useState(() => {
@@ -56,6 +61,7 @@ export default function App() {
 
 
   return (
+    
     <>
       <h1 className="header">Simple Todo List</h1>
       <NewTodoForm onSubmit={addTodo} />
@@ -70,5 +76,6 @@ export default function App() {
       handleDelete={handleDelete}/>
       </div>
     </>
+   
   );
 }

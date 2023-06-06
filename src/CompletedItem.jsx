@@ -6,7 +6,7 @@ export function CompletedItem({id, title, handleDelete}) {
     return (
         <li className="doneItem"
         key={id}>
-            {title}
+            <span className="item-title">{title}</span>
             <Button
                 variant="outlined"
                 color="error"
