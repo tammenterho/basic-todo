@@ -11,19 +11,28 @@ export default function App() {
   // ei voi renderöidä hookseja ehdollisesti
   // hooks aina filen ylös
 
-  const[done, setDone] = useState([])
+  const [dones, setDones] = useState([])
 
   useEffect(() => {
     localStorage.setItem("ITEM", JSON.stringify(todos))
- }, [todos]) // aina kun todos muuttuu, useEffect ajetaan
+
+    const updatedTodos = todos.filter(todo => !todo.completed);
+    setTodos(updatedTodos);
+
+    const completedTodos = todos.filter(todo => todo.completed)
+    if (completedTodos.length > 0) {
+      setDones(prevDones => [...prevDones, ...completedTodos])
+    }
+  }, [todos]) // aina kun todos muuttuu, useEffect ajetaan
+
 
   function addTodo(title) {
-      setTodos(currentTodos => {
-          return [
-              ...currentTodos,
-              { id: crypto.randomUUID(), title, completed: false },
-          ]
-      })
+    setTodos(currentTodos => {
+      return [
+        ...currentTodos,
+        { id: crypto.randomUUID(), title, completed: false },
+      ]
+    })
   }
 
   function handleDelete(id) {
@@ -31,27 +40,38 @@ export default function App() {
       return currentTodos.filter(todo => todo.id !== id)
     })
   }
- 
+
   function toggleTodo(id, completed) {
     setTodos(currentTodos => {
       return currentTodos.map(todo => {
         if (todo.id === id) {
-          return {...todo, completed}
+          return { ...todo, completed }
         }
         return todo
       })
     })
   }
   
+
   return (
     <>
-    <NewTodoForm onSubmit={addTodo}/>
-    <TodoList 
-    todos={todos}
-    toggleTodo={toggleTodo}
-    handleDelete={handleDelete}
-    />
-    <h1>Completed</h1>
+      <NewTodoForm onSubmit={addTodo} />
+      <TodoList
+        todos={todos}
+        toggleTodo={toggleTodo}
+        handleDelete={handleDelete}
+      />
+      <h1>Completed</h1>
+      <ul>
+        {dones.length === 0 && "complete a task!"} 
+        {dones.map(done => {
+          return (
+            <li key={done.id}>
+              {done.title}
+            </li>
+          )
+        })}
+      </ul>
     </>
   );
 }
