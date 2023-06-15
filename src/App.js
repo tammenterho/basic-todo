@@ -4,7 +4,7 @@ import { TodoList } from "./todoList";
 import './../src/styles.css'
 import { CompletedList } from "./completedList";
 import Alert from '@mui/material/Alert';
-import './../src/styles.css'
+
 
 
 
@@ -13,6 +13,7 @@ import './../src/styles.css'
 export default function App() {
   const [deletedVisible, setDeletedVisible] = useState(false)
   const [successVisible, setSuccessVisible] = useState(false)
+  const [emptyFieldAlertVisible, setEmptyFieldAlertVisible] = useState(false)
   const [todos, setTodos] = useState(() => {
     const localValue = localStorage.getItem("ITEMS")
     if (localValue == null) return []
@@ -37,17 +38,24 @@ export default function App() {
 
 
   function addTodo(title) {
-    setTodos(currentTodos => {
-      return [
-        ...currentTodos,
-        { id: crypto.randomUUID(), title, completed: false },
-      ]
-    })
-    setSuccessVisible(true)
+    if (title === "") {
+      setEmptyFieldAlertVisible(true)
+      setTimeout(() => {
+        setEmptyFieldAlertVisible(false)
+      }, 5000)
+    } else {
+      setTodos(currentTodos => {
+        return [
+          ...currentTodos,
+          { id: crypto.randomUUID(), title, completed: false },
+        ]
+      })
+      setSuccessVisible(true)
 
-        setTimeout(() => {
-            setSuccessVisible(false)
-        }, 5000)
+      setTimeout(() => {
+        setSuccessVisible(false)
+      }, 5000)
+    }
   }
 
   function handleDelete(id) {
@@ -75,9 +83,9 @@ export default function App() {
   return (
 
     <>
-      {deletedVisible && (
-        <Alert severity="success">
-          Deleted succesfully!
+      {emptyFieldAlertVisible && (
+        <Alert severity="warning">
+          Input cannot be empty!
         </Alert>
       )}
       {successVisible && (
@@ -85,7 +93,11 @@ export default function App() {
           New todo added succesfully!
         </Alert>
       )}
-
+      {deletedVisible && (
+        <Alert severity="success">
+          empty field
+        </Alert>
+      )}
       <h1 className="header">Simple Todo List</h1>
       <NewTodoForm onSubmit={addTodo} />
       <div className="lists">
